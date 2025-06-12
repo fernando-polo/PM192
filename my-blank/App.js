@@ -2,11 +2,15 @@
 // Zona 1: Importaciones
 import { StatusBar } from 'expo-status-bar';
 import { Button, StyleSheet, Text, View } from 'react-native';
+import React, {useState} from 'react'; 
 
-const Texto = (props) =>{
-  const {children} = props
+const Texto = () =>{
+  const [contenido, setContenido] = useState('Hello world: React.')
+  const actualizarTexto = () => {
+    setContenido('Estado actualizado')
+  }
   return (
-          <Text> { children } </Text>
+          <Text onPress={actualizarTexto}>{contenido}</Text>
   )
 }
 
@@ -16,14 +20,14 @@ export default function App() {
   return (
 
     <View style={styles.container}>
-      <Texto> 'hola' </Texto>
-      <Texto> mundo </Texto>
-      <Texto> 'React Native' </Texto>
+      <Texto></Texto>
+      <Texto></Texto>
+      <Texto></Texto>
       <Button title='Press this button.'></Button>
       <StatusBar style="auto" />
     </View>
   );
-  
+
 }
 
 // Zona 3: Estilos 
