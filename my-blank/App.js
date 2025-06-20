@@ -1,72 +1,85 @@
-// Text input y Alert
-
 // Importaciones
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Button, View, Text, Alert, TouchableOpacity, Image } from "react-native";
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
 
-
-// Ejecución
-export default function App(){
-  const [nombre, setNombre] = useState('');
-
-  
-  const mostrarAlerta = () => {
-
-    if (nombre.trim()===''){
-      Alert.alert('error', 'Por favor escribe algo');
-      alert('Escribe algo')
-    } else {
-
-      Alert.alert('Bienvenido', `hola ${nombre}, bienvenido a nuestra app :P`);
-      alert('Hola ' + nombre + ' bienvenido');
-
-
-    }
-  } 
+export default function App() {
+  const [botonDesactivado, setBotonDesactivado] = useState(false);
+  const [contador, setContador] = useState(0);
 
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1 }}>
 
-      <Text style={styles.text}> Ingresa tu nombre </Text>
-      <TextInput 
-      style={styles.input}
-      placeholder='Aquí va algo'
-      onChangeText={setNombre}
-      value={nombre}
-      >
-      </TextInput>
+      <View style={styles.container}>
 
-      <Button title = 'Enviar' onPress={mostrarAlerta}></Button>
+        <Button
+          title="Presioname"
+          color="#841584"
+          onPress={() => alert('Me presionaste =P')}
+        />
+        <Button
+          title={botonDesactivado ? 'Desactivado' : 'Desactivame'}
+          disabled={botonDesactivado}
+          onPress={() => setBotonDesactivado(true)}
+        />
+
+        <TouchableOpacity
+        style={styles.dynamicButton}
+        onPress={() => setContador(contador + 1)}>
+          <Text style={styles.dynamicText}>{contador}</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity
+        onPress = {() => alert('La pokebola ha sido presionada')}>
+          <Image
+          source={require('./assets/pokebola.png')}
+          style={styles.imagen}></Image>
+        </TouchableOpacity>
+
+      </View>
+
+      <View style={styles.botonJustificado}>
+
+        <Button title="left button" color="#674323" />
+        <Button title="right button" color="#097865" />
+
+      </View>
 
     </View>
-  )
-};
+  );
+}
 
 // Estilos
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    padding: 20,
     justifyContent: 'center',
-  },
-  
-  text: {
-    fontSize: 18,
-    marginBottom: 10,
-    color: '#000'
+    alignItems: 'center',
+    backgroundColor: '#fff',
   },
 
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
+  botonJustificado: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    marginBottom: 40,
+  },
+
+  dynamicButton: {
     padding: 10,
-    marginBottom: 20,
+    marginTop: 10,
+    backgroundColor: '#987867',
     borderRadius: 5,
-    backgroundColor: '#f9f9f9',
-    color: '#000'
-  }
+    alignItems: 'center'
+  },
 
-  }
+  dynamicText: {
+    color: '#345676',
+    fontSize: 18
+  },
 
-);
+  imagen: {
+    width: 100,
+    height: 100
+  },
+});
