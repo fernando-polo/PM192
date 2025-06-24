@@ -1,85 +1,74 @@
-// Importaciones
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Button, View, Text, Alert, TouchableOpacity, Image } from "react-native";
-import React, { useState } from 'react';
+// Splash Screen
+/* Zone 1: Importaciones */
+import { ImageBackground, StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+
+const FondoBienvenida = () => {
+  return (
+    <ImageBackground
+      source={require('./assets/pokebola.png')}
+      style={styles.fondo}
+    >
+      <View style={styles.contenido}>
+        <Text style={styles.titulo}>Este es el Splash Screen</Text>
+      </View>
+    </ImageBackground>
+  );
+};
+
+/* Zone 2: Main */
 
 export default function App() {
-  const [botonDesactivado, setBotonDesactivado] = useState(false);
-  const [contador, setContador] = useState(0);
+  const [showSplash, setShowSplash] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSplash(false);  // Ocultar splash después de 3 segundos
+    }, 2000);
+
+    return () => clearTimeout(timer); // Limpiar timer al desmontar
+  }, []);
 
   return (
-    <View style={{ flex: 1 }}>
-
-      <View style={styles.container}>
-
-        <Button
-          title="Presioname"
-          color="#841584"
-          onPress={() => alert('Me presionaste =P')}
-        />
-        <Button
-          title={botonDesactivado ? 'Desactivado' : 'Desactivame'}
-          disabled={botonDesactivado}
-          onPress={() => setBotonDesactivado(true)}
-        />
-
-        <TouchableOpacity
-        style={styles.dynamicButton}
-        onPress={() => setContador(contador + 1)}>
-          <Text style={styles.dynamicText}>{contador}</Text>
-        </TouchableOpacity>
-        
-        <TouchableOpacity
-        onPress = {() => alert('La pokebola ha sido presionada')}>
-          <Image
-          source={require('./assets/pokebola.png')}
-          style={styles.imagen}></Image>
-        </TouchableOpacity>
-
-      </View>
-
-      <View style={styles.botonJustificado}>
-
-        <Button title="left button" color="#674323" />
-        <Button title="right button" color="#097865" />
-
-      </View>
-
-    </View>
+    <SafeAreaView style={styles.container}>
+      {showSplash ? (
+        <FondoBienvenida />
+      ) : (
+        <View style={styles.mainContent}>
+          <Text style={styles.mainText}>Pantalla usando Splash Screen</Text>
+          {/* Aquí va el resto de tu app después del splash */}
+        </View>
+      )}
+    </SafeAreaView>
   );
 }
 
-// Estilos
+/* Zone 3: Estilos */
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  fondo: {
+    flex: 1,
+  },
+  contenido: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: 'rgba(0,0,0,0.4)', // para oscurecer la imagen
   },
-
-  botonJustificado: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    marginBottom: 40,
+  titulo: {
+    fontSize: 28,
+    color: 'white',
+    fontWeight: 'bold',
   },
-
-  dynamicButton: {
-    padding: 10,
-    marginTop: 10,
-    backgroundColor: '#987867',
-    borderRadius: 5,
-    alignItems: 'center'
+  mainContent: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-
-  dynamicText: {
-    color: '#345676',
-    fontSize: 18
-  },
-
-  imagen: {
-    width: 100,
-    height: 100
+  mainText: {
+    fontSize: 24,
+    fontWeight: 'bold',
   },
 });
