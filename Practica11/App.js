@@ -1,20 +1,6 @@
 import React, { useState } from 'react';
 import {
   View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  Alert,
-  Switch,
-  StyleSheet,
-  ImageBackground,
-  Image,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  ActivityIndicator,
-  Modal,
-  SafeAreaView,
 } from 'react-native';
 
 export default function App() {

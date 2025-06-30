@@ -1,74 +1,70 @@
-// Splash Screen
-/* Zone 1: Importaciones */
-import { ImageBackground, StyleSheet, Text, View, SafeAreaView } from 'react-native';
-import React, { useState, useEffect } from 'react';
+// Importaciones
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View, Button, ActivityIndicator } from 'react-native';
+import react, {useState} from 'react'
 
-const FondoBienvenida = () => {
-  return (
-    <ImageBackground
-      source={require('./assets/pokebola.png')}
-      style={styles.fondo}
-    >
-      <View style={styles.contenido}>
-        <Text style={styles.titulo}>Este es el Splash Screen</Text>
-      </View>
-    </ImageBackground>
-  );
-};
 
-/* Zone 2: Main */
+// Zona de componentes hijo con props
+const IndicadorCarga = ({color, size}) => {
+  return <ActivityIndicator style = {styles.indicador} color = {color} size = {size} />
+}
 
-export default function App() {
-  const [showSplash, setShowSplash] = useState(true);
+// Zona - componenete principal
+export default function App(){
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowSplash(false);  // Ocultar splash después de 3 segundos
-    }, 2000);
+  const[cargando, setCargando] = useState(false);
 
-    return () => clearTimeout(timer); // Limpiar timer al desmontar
-  }, []);
+  const iniciarCarga = () =>{
+    setCargando(true);
+    setTimeout(() => {
+      setCargando(false);
+    }, 3000); //simulación de carga
+  }
+
 
   return (
-    <SafeAreaView style={styles.container}>
-      {showSplash ? (
-        <FondoBienvenida />
-      ) : (
-        <View style={styles.mainContent}>
-          <Text style={styles.mainText}>Pantalla usando Splash Screen</Text>
-          {/* Aquí va el resto de tu app después del splash */}
-        </View>
-      )}
-    </SafeAreaView>
+    <View style={styles.container}>
+      <Text style={styles.textoPrincipal}>  Activity Indicator   </Text>
+
+        {cargando ? (
+          <IndicadorCarga color = 'deepskyblue' size = 'large'/>
+        ) : (
+          <Text style={styles.textoSecundario}> Presiona el botón para comenzar :D</Text>
+        )}
+      <Button title = 'Iniciar Carga' onPress = {iniciarCarga} color = '#ff6f61'></Button>
+        <StatusBar style='auto' />
+    </View>
   );
 }
 
-/* Zone 3: Estilos */
+// Estilos
 const styles = StyleSheet.create({
+
   container: {
     flex: 1,
-  },
-  fondo: {
-    flex: 1,
-  },
-  contenido: {
-    flex: 1,
+    backgroundColor: '#ccff90',
+    alignItems : 'center',
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0.4)', // para oscurecer la imagen
+    padding: 20,
   },
-  titulo: {
-    fontSize: 28,
-    color: 'white',
-    fontWeight: 'bold',
-  },
-  mainContent: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  mainText: {
+
+  textoPrincipal: {
     fontSize: 24,
     fontWeight: 'bold',
+    marginBottom: 30,
+    color: '#2e2e2e'
   },
-});
+
+  textoSecundario: {
+    fontSize: 16,
+    marginVertical: 20,
+    color: '#3a3a3a'
+  },
+
+  indicador:{
+    marginBottom: 20,
+  }
+
+})
+
+
