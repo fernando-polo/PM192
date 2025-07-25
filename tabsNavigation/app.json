@@ -12,18 +12,48 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    
+
+    "updates": {
+      "url": "https://u.expo.dev/d2cddb51-28cf-43de-97b5-8b5157cecc7e",
+      "fallbackToCacheTimeout": 0,
+      "enabled": true
+    },
+    
+
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.poloretro.tabsnavigation",
+      "buildNumber": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.poloretro.tabsnavigation",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    
+
+    "plugins": [
+      "expo-updates"
+    ],
+    
+
+    "extra": {
+      "eas": {
+        "projectId": "d2cddb51-28cf-43de-97b5-8b5157cecc7e"
+      }
+    },
+    "owner": "poloretro"
   }
 }
